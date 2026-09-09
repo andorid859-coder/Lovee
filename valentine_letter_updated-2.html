@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Letter — HTML · CSS · JS</title>
+<style>
+:root{
+  --bg:#241238;
+  --pink:#e89aaa;
+  --dark:#211321;
+  --red:#e93658;
+  --cream:#fff8ee;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:"Courier New",monospace;
+  background:radial-gradient(circle at 50% 20%,#48245f,#1d102d 70%);
+  color:var(--dark);
+  overflow-x:hidden;
+}
+.page{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:18px 12px;
+}
+.badge{
+  color:#ffd2df;
+  background:#1b1225;
+  border:1px solid #5a356d;
+  border-radius:28px;
+  padding:10px 22px;
+  font-weight:bold;
+  box-shadow:0 0 25px #e9365830;
+  z-index:2;
+}
+.badge span{color:#ff7eae}
+.browser{
+  width:min(560px,92vw);
+  margin-top:-2px;
+  border-radius:24px;
+  overflow:hidden;
+  background:var(--cream);
+  box-shadow:0 20px 60px #0008;
+  border:1px solid #38203f;
+}
+.bar{
+  height:48px;
+  background:#171020;
+  color:#aaa;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:0 18px;
+}
+.dot{width:14px;height:14px;border-radius:50%}
+.red{background:#ff5f57}.yellow{background:#ffbd2e}.green{background:#28c840}
+.path{
+  margin-left:18px;
+  font-size:13px;
+  color:#aaa;
+}
+.scene{
+  min-height:650px;
+  padding:48px 34px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 20% 20%,#ffd8e3 0 2px,transparent 3px),
+    radial-gradient(circle at 80% 25%,#ffd8e3 0 2px,transparent 3px),
+    linear-gradient(120deg,#ffe5ec,#fff8ef 65%);
+}
+.window{
+  width:100%;
+  max-width:475px;
+  margin:auto;
+  border:5px solid #d97b88;
+  border-radius:18px;
+  background:#fff0f5;
+  overflow:hidden;
+  box-shadow:0 12px 30px #bd617955;
+}
+.titlebar{
+  height:58px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 14px;
+  background:#efb2c2;
+  border-bottom:4px solid #d97b88;
+  font-weight:bold;
+  font-size:20px;
+}
+.controls{display:flex;gap:8px}
+.controls button{
+  width:30px;height:28px;
+  border:2px solid #d99aa7;
+  background:#fff9f4;
+  color:#75414b;
+  border-radius:4px;
+}
+.icons{
+  padding:13px;
+  color:#e93658;
+  font-size:24px;
+  letter-spacing:8px;
+  border-bottom:4px solid #d97b88;
+}
+.content{
+  min-height:390px;
+  padding:25px 18px;
+  background:
+    linear-gradient(45deg,#f5b9cb 25%,transparent 25%,transparent 75%,#f5b9cb 75%),
+    linear-gradient(45deg,#f5b9cb 25%,transparent 25%,transparent 75%,#f5b9cb 75%);
+  background-size:26px 26px;
+  background-position:0 0,13px 13px;
+  background-color:#ffdce7;
+}
+h1{
+  margin:0 0 14px;
+  font-size:24px;
+}
+.cat{
+  font-size:80px;
+  line-height:1;
+  margin:10px 0 18px;
+  filter:drop-shadow(4px 5px 0 #fff);
+}
+.heart{color:#e93658;font-size:30px}
+.message{
+  font-family:"Courier New",monospace;
+  font-weight:bold;
+  font-size:15px;
+  line-height:1.6;
+  margin:18px auto;
+  max-width:390px;
+}
+.highlight{
+  background:#6da5dc;
+  color:white;
+  padding:2px 4px;
+  border-radius:2px;
+}
+.actions{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  margin-top:18px;
+}
+.actions button{
+  border:3px solid #d97b88;
+  border-radius:12px;
+  padding:10px 22px;
+  background:#fff5f7;
+  font:700 16px "Courier New",monospace;
+  cursor:pointer;
+}
+.actions button:hover{transform:scale(1.05)}
+.code-row{
+  width:min(900px,96vw);
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:22px;
+}
+.code{
+  min-height:220px;
+  padding:16px;
+  border:1px solid #392542;
+  border-radius:14px;
+  background:#120c19;
+  color:#ddd;
+  box-shadow:0 10px 30px #0005;
+  overflow:auto;
+}
+.code h3{margin:0 0 12px;color:#ff9ab8}
+.code pre{
+  margin:0;
+  white-space:pre-wrap;
+  font:12px/1.5 "Courier New",monospace;
+}
+.love-overlay{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(20,8,30,.72);
+  backdrop-filter:blur(12px);
+  z-index:100;
+  animation:fadeIn .35s ease;
+}
+
+.love-popup{
+  width:min(360px,86vw);
+  padding:34px 24px;
+  text-align:center;
+  border:2px solid #f3a8bd;
+  border-radius:28px;
+  background:linear-gradient(145deg,#fff8fb,#ffdce8);
+  box-shadow:0 25px 80px #0008,0 0 40px #ff8eae66;
+  animation:popIn .45s cubic-bezier(.2,1.4,.4,1);
+}
+
+.big-heart{
+  font-size:75px;
+  color:#e93658;
+  animation:pulse 1s infinite;
+}
+
+.love-popup h2{
+  margin:5px 0 10px;
+  font-size:30px;
+  color:#8b3048;
+}
+
+.love-popup p{
+  font-weight:bold;
+  line-height:1.6;
+  color:#633743;
+}
+
+.sparkles{
+  margin:18px 0;
+  color:#e93658;
+  font-size:24px;
+  letter-spacing:5px;
+}
+
+#closeLove{
+  border:0;
+  border-radius:15px;
+  padding:12px 30px;
+  background:#e93658;
+  color:white;
+  font:bold 16px "Courier New",monospace;
+  cursor:pointer;
+  box-shadow:0 8px 20px #e936584d;
+}
+
+#closeLove:hover{
+  transform:scale(1.06);
+}
+
+@keyframes fadeIn{
+  from{opacity:0} to{opacity:1}
+}
+
+@keyframes popIn{
+  from{transform:scale(.65) translateY(20px);opacity:0}
+  to{transform:scale(1) translateY(0);opacity:1}
+}
+
+@keyframes pulse{
+  50%{transform:scale(1.12)}
+}
+
+.fall{
+  position:fixed;
+  top:-30px;
+  pointer-events:none;
+  animation:fall linear forwards;
+  z-index:10;
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg);opacity:.15}
+}
+@media(max-width:700px){
+  .scene{padding:28px 12px}
+  .code-row{grid-template-columns:1fr}
+  .code{min-height:170px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="browser">
+    <div class="bar">
+      <div class="dot red"></div>
+      <div class="dot yellow"></div>
+      <div class="dot green"></div>
+      <div class="path">localhost / love</div>
+    </div>
+
+    <div class="scene">
+      <section class="window">
+        <header class="titlebar">
+          <span>LOVE</span>
+          <div class="controls">
+            <button>−</button><button>□</button><button>×</button>
+          </div>
+        </header>
+
+        <div class="icons">♥ · ♥ · ♥</div>
+
+        <div class="content">
+          <h1 id="title">Do you love me? 💞</h1>
+          <div class="heart">♥</div>
+
+          <!-- CSS/emoji pixel-cat -->
+          <div class="cat" aria-label="cute cat">ฅ^•ﻌ•^ฅ</div>
+
+          <p class="message">
+            Every month of my life, <span class="highlight">a lifetime</span>
+            to go. Happy and necessary, my love ♥
+          </p>
+
+          <div class="actions">
+            <button id="yesBtn">YES ♥</button>
+            <button id="noBtn">NO</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<script>
+const noBtn=document.getElementById("noBtn");
+const yesBtn=document.getElementById("yesBtn");
+const title=document.getElementById("title");
+
+noBtn.addEventListener("mouseenter",dodge);
+noBtn.addEventListener("click",dodge);
+
+const noMessages = [
+  "Rostdanmi? 😭",
+  "Yo‘q deb bosma 😅",
+  "O‘ylab ko‘r ❤️",
+  "NO ishlamaydi 😎",
+  "Boshqa tugmani bos 😏",
+  "Hech qochib qutulmaysan 😂",
+  "Yana urinib ko‘r 😜",
+  "Bu tugma bugun ishlamaydi 💗"
+];
+
+let noCount = 0;
+
+function dodge(){
+  title.textContent = noMessages[noCount % noMessages.length];
+  noCount++;
+
+  noBtn.style.position="fixed";
+  noBtn.style.left=Math.random()*70+15+"%";
+  noBtn.style.top=Math.random()*65+20+"%";
+}
+
+yesBtn.addEventListener("click",()=>{
+  title.textContent="Yayyy! ♥";
+  rainHearts();
+
+  // Chiroyli yangi oyna
+  const overlay = document.createElement("div");
+  overlay.className = "love-overlay";
+  overlay.innerHTML = `
+    <div class="love-popup">
+      <div class="big-heart">♥</div>
+      <h2>Yayyy! 💖</h2>
+      <p>Men ham seni juda yaxshi ko‘raman! ✨</p>
+      <div class="sparkles">✦ ✧ ♥ ✧ ✦</div>
+      <button id="closeLove">malades💞😂</button>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+
+  document.getElementById("closeLove").addEventListener("click",()=>{
+    overlay.remove();
+  });
+});
+
+function rainHearts(){
+  for(let i=0;i<45;i++){
+    setTimeout(()=>{
+      const h=document.createElement("div");
+      h.className="fall";
+      h.textContent=["♥","♡","💗","💖"][Math.floor(Math.random()*4)];
+      h.style.left=Math.random()*100+"vw";
+      h.style.fontSize=14+Math.random()*25+"px";
+      h.style.animationDuration=2+Math.random()*3+"s";
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(),5500);
+    },i*70);
+  }
+}
+</script>
+</body>
+</html>
